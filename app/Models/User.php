@@ -9,16 +9,16 @@ use App\Models\Detail;
 class User extends Model
 {
     use HasFactory;
- 
+
     protected $table = 'user';
-    public $timestapms= false;
-    
+    public $timestamps = false;
+    //using hasmany verb one to many
     public function details(){
-        return $this->hasMany(Detail::class, 'userId','id');
-    }
-  
-    public function assignedDetails(){
-        return Detail::where('id', $this->userId)->first();
+        return $this->hasMany(Detail::class,'userId');
     }
 
+    //using eloquent
+    public function assignedDetails(){
+        return Detail::where('userId', $this->id)->get();
+    }
 }
